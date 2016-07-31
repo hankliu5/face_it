@@ -13,17 +13,17 @@ class FaceView: UIView {
     
     // drawing my own coordinate system
     @IBInspectable
-    var scale: CGFloat = 0.90
+    var scale: CGFloat = 0.90 { didSet { setNeedsDisplay() } } // never use drawRect() here.
     @IBInspectable
-    var mouthCurvature: Double = 1.0 // 1 is full smile, -1 is full frown
+    var mouthCurvature: Double = 1.0 { didSet { setNeedsDisplay() } } // 1 is full smile, -1 is full frown
     @IBInspectable
-    var eyesOpen: Bool = false
+    var eyesOpen: Bool = false { didSet { setNeedsDisplay() } }
     @IBInspectable
-    var eyeBrowTilt: Double = 1.0 // -1 is fully furrow, 1 is fully relaxed
+    var eyeBrowTilt: Double = 1.0 { didSet { setNeedsDisplay() } } // -1 is fully furrow, 1 is fully relaxed
     @IBInspectable
-    var color: UIColor = UIColor.blueColor()
+    var color: UIColor = UIColor.blueColor() { didSet { setNeedsDisplay() } }
     @IBInspectable
-    var lineWidth: CGFloat = 5.0
+    var lineWidth: CGFloat = 5.0 { didSet { setNeedsDisplay() } }
 
     private var skullRadius: CGFloat {
         return min(bounds.size.width, bounds.size.height) / 2 * scale
