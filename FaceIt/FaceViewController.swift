@@ -16,7 +16,15 @@ class FaceViewController: UIViewController {
         }
     }
     
-    @IBOutlet weak var faceView: FaceView! { didSet { updateUI() } } // important!
+    // important!
+    @IBOutlet weak var faceView: FaceView! {
+        didSet {
+            faceView.addGestureRecognizer(UIPinchGestureRecognizer(
+                target: faceView, action: #selector(FaceView.changeScale(_:))
+                ))
+            updateUI()
+        }
+    }
     
     private var mouthCurvatures = [FacialExpression.Mouth.Frown: -1.0,
                                    .Grin: 0.5,
