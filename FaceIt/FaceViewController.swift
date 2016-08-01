@@ -17,7 +17,7 @@ class FaceViewController: UIViewController {
     }
     
     // important!
-    @IBOutlet weak var faceView: FaceView! {
+    @IBOutlet weak var faceView: FaceView! { // implicitly unwrapped -> optional
         didSet {
             faceView.addGestureRecognizer(UIPinchGestureRecognizer(
                 target: faceView, action: #selector(FaceView.changeScale(_:))
@@ -68,17 +68,18 @@ class FaceViewController: UIViewController {
                                 .Normal: 0.0]
     
     private func updateUI() {
-        switch expression.eyes {
-        case .Open:
-            faceView.eyesOpen = true
-        case .Closed:
-            faceView.eyesOpen = false
-        case .Squinting:
-            faceView.eyesOpen = false
+        if faceView != nil {
+            switch expression.eyes {
+            case .Open:
+                faceView.eyesOpen = true
+            case .Closed:
+                faceView.eyesOpen = false
+            case .Squinting:
+                faceView.eyesOpen = false
+            }
+            faceView.mouthCurvature = mouthCurvatures[expression.mouth] ?? 0.0
+            faceView.eyeBrowTilt = eyeBrowTilts[expression.eyeBrows] ?? 0.0
         }
-        
-        faceView.mouthCurvature = mouthCurvatures[expression.mouth] ?? 0.0
-        faceView.eyeBrowTilt = eyeBrowTilts[expression.eyeBrows] ?? 0.0
     }
 
 }
