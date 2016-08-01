@@ -18,7 +18,10 @@ class EmotionsViewController: UIViewController {
     ]
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        let destinationvc = segue.destinationViewController
+        var destinationvc = segue.destinationViewController
+        if let navcon = destinationvc as? UINavigationController {
+            destinationvc = navcon.visibleViewController ?? destinationvc
+        }
         if let facevc = destinationvc as? FaceViewController {
             if let identifier = segue.identifier {
                 if let expression = emotionalFaces[identifier] {
